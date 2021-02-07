@@ -39,7 +39,8 @@
   "dependencies": {
     "@rescript/react": "^0.10.1",
     "react": "^17.0.1",
-    "react-dom": "^17.0.1"
+    "react-dom": "^17.0.1",
+    "react-hook-form": "^6.15.1"
   },
   "devDependencies": {
     "@snowpack/plugin-dotenv": "^2.0.5",
