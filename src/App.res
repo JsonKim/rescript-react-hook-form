@@ -2,32 +2,42 @@
 
 %%raw(`import './App.css';`)
 
+type useFormMethod<'a, 'b> = {
+  register: 'a,
+  handleSubmit: 'b,
+}
+
+@bs.module("react-hook-form") external useForm: ('input) => useFormMethod<'a, 'b> = "useForm" 
+
+type loginForm = {
+  id: string,
+  password: string,
+  repeatedPassword: string,
+}
+
 @react.component
 let make = () => {
-  let (count, setCount) = React.useState(() => 0.)
+  let { register, handleSubmit } = useForm()
 
-  React.useEffect0(() => {
-    let intervalId = Js.Global.setInterval(() => setCount(count => count +. 1.), 100)
+  let onSubmit = (data: loginForm) => {
+    Js.log(data.id)
+  }
 
-    Some(() => Js.Global.clearInterval(intervalId))
-  })
+  let onClick = handleSubmit(. onSubmit)
 
-  <div className="App">
-    <header className="App-header">
-      <img src=logo className="App-logo" alt="logo" />
-      <p>
-        {React.string("Edit ")}
-        <code> {React.string("src/App.jsx")} </code>
-        {React.string(" and save to reload.")}
-      </p>
-      <p>
-        {React.string("Page has been open for ")}
-        <code> {React.string(Printf.sprintf("%.1f", count /. 10.))} </code>
-        {React.string(" seconds")}
-      </p>
-      <a className="App-link" href="https://reactjs.org" target="_blank" rel="noopener noreferrer">
-        {React.string("Learn React")}
-      </a>
-    </header>
-  </div>
+  <>
+    <div>
+      {React.string(`아이디`)}
+      <input name="id" ref={ReactDOM.Ref.domRef(register)} />
+    </div>
+    <div>
+      {React.string(`비밀번호`)}
+      <input name="password" ref={ReactDOM.Ref.domRef(register)} />
+    </div>
+    <div>
+      {React.string(`비밀번호 확인`)}
+      <input name="repeatedPassword" ref={ReactDOM.Ref.domRef(register)} />
+    </div>
+    <div><button onClick>{React.string(`로그인`)}</button></div>
+  </>
 }
